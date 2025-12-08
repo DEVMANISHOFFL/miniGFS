@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -11,6 +12,8 @@ import (
 func main() {
 	port := flag.String("port", "9001", "chunkserver port")
 	flag.Parse()
+
+	os.MkdirAll("data", 0755)
 
 	addr := ":" + *port
 
@@ -29,7 +32,9 @@ func main() {
 	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
 	<-stop
 
-	log.Println("chunk-server shutting down…")
+	log.Println("chunk-server shutting down...")
 	close(stopHeartbeat)
 	srv.Close()
+	fmt.Println("chunk-server: shutdown complete")
+
 }

@@ -18,7 +18,7 @@ func sweeper() {
 
 			if cs.Alive && now.Sub(cs.lastSeen) > heartbeatTimeout {
 				cs.Alive = false
-				log.Printf("master: detected DEAD chunkserver → %s (lastSeen=%s)",
+				log.Printf("master: detected DEAD chunkserver : %s (lastSeen=%s)",
 					id, cs.lastSeen.Format(time.RFC3339))
 			}
 		}

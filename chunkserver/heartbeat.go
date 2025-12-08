@@ -20,7 +20,7 @@ func startRegistration(port string) {
 			log.Printf("chunk-server: registered with master")
 			return
 		}
-		log.Printf("register failed: %v — retrying...", err)
+		log.Printf("register failed: %v | retrying...", err)
 		time.Sleep(registerRetryDelay)
 	}
 }
