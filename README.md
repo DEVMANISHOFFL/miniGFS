@@ -1,9 +1,3 @@
-Here you go bro — **the entire README.md in ONE clean copy-paste block**, no breaks, no chunks, no interruptions.
-Just slam this straight into your repo.
-
----
-
-```md
 # Mini-GFS (Google File System Inspired)
 
 A lightweight, educational distributed file system inspired by the Google File System design. Mini-GFS consists of a **Master** node that manages metadata and multiple **ChunkServers** that store replicated chunks on disk. The goal is to learn how large-scale distributed storage works underneath while keeping the implementation simple and readable.
@@ -190,9 +184,4 @@ Are found in:
 Inspired by the Google File System paper. Created as a learning project to understand distributed storage systems.
 
 ## License
-
-Specify your preferred license (MIT recommended).
-
-```
-
----
+MIT License
