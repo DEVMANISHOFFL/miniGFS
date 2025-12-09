@@ -13,10 +13,27 @@ type HeartbeatRequest struct {
 	Port string `json:"port"`
 }
 
+type ChunkLocationsRequest struct {
+	ChunkID string `json:"chunk_id"`
+}
+
+type AllocateRequest struct {
+	File string `json:"file"`
+}
+
+type ChunkLocationsResponse struct {
+	Locations []string `json:"locations"`
+}
+
+type AllocateResponse struct {
+	ChunkID   string   `json:"chunk_id"`
+	Locations []string `json:"locations"`
+}
+
 type ChunkServerInfo struct {
 	Port         string `json:"port"`
-	LastSeenUnix int64  `json:"last_seen_unix"`
 	Alive        bool   `json:"alive"`
+	LastSeenUnix int64  `json:"last_seen_unix"`
 	lastSeen     time.Time
 }
 
@@ -33,8 +50,8 @@ type ChunkMeta struct {
 }
 
 var (
-	chunkServers = make(map[string]*ChunkServerInfo)
 	mu           sync.Mutex
+	chunkServers = make(map[string]*ChunkServerInfo)
 	files        = make(map[string]*FileMeta)
 	chunks       = make(map[string]*ChunkMeta)
 )

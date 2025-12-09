@@ -37,7 +37,7 @@ func startHeartbeats(port string, stopChan <-chan struct{}) {
 				if err != nil {
 					log.Printf("heartbeat error: %v", err)
 				} else {
-					log.Printf("heartbeat sent")
+					log.Printf("\033[31mheartbeat sent:\033[0m from %s\n", port)
 				}
 			case <-stopChan:
 				ticker.Stop()

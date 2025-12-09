@@ -8,23 +8,6 @@ import (
 	"time"
 )
 
-type ChunkLocationsRequest struct {
-	ChunkID string `json:"chunk_id"`
-}
-
-type ChunkLocationsResponse struct {
-	Locations []string `json:"locations"`
-}
-
-type AllocateRequest struct {
-	File string `json:"file"`
-}
-
-type AllocateResponse struct {
-	ChunkID   string   `json:"chunk_id"`
-	Locations []string `json:"locations"`
-}
-
 // REGISTER HANDLER
 func registerHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
@@ -151,8 +134,8 @@ func allocateChunks(file string) (*AllocateResponse, error) {
 	}
 
 	// get or create file metadata
-	fm, ok := files[file]
-	if !ok {
+	fm, exist := files[file]
+	if !exist {
 		fm = &FileMeta{
 			Name: file,
 		}
@@ -177,7 +160,7 @@ func allocateChunks(file string) (*AllocateResponse, error) {
 		Replicas: replicas,
 	}
 
-	// just a mapping thing
+	// just a mapping and appending things
 	chunks[chunkID] = cm
 	fm.Chunks = append(fm.Chunks, chunkID)
 
@@ -197,6 +180,7 @@ func ChunkLocationsHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	var req ChunkLocationsRequest
+
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, "invalid json", http.StatusBadRequest)
 		return
