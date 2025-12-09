@@ -1,14 +1,9 @@
-Here you go bro — **the entire README.md in ONE clean copy-paste block**, no breaks, no chunks, no interruptions.
-Just slam this straight into your repo.
-
----
-
-```md
 # Mini-GFS (Google File System Inspired)
 
 A lightweight, educational distributed file system inspired by the Google File System design. Mini-GFS consists of a **Master** node that manages metadata and multiple **ChunkServers** that store replicated chunks on disk. The goal is to learn how large-scale distributed storage works underneath while keeping the implementation simple and readable.
 
 ## Table of Contents
+
 - Overview
 - Features
 - Architecture
@@ -23,9 +18,11 @@ A lightweight, educational distributed file system inspired by the Google File S
 - License
 
 ## Overview
+
 Mini-GFS implements the core ideas of the Google File System (GFS) in a simplified manner:
 
 - A **Master** service that:
+
   - Tracks all ChunkServers using heartbeats.
   - Maintains metadata mapping filenames → chunk handles → replica locations.
   - Allocates new chunks and selects replicas.
@@ -42,6 +39,7 @@ Mini-GFS implements the core ideas of the Google File System (GFS) in a simplifi
 ## Features
 
 ### Master
+
 - `/register` and `/heartbeat` endpoints.
 - Detects alive/dead chunkservers.
 - File + chunk metadata management.
@@ -50,6 +48,7 @@ Mini-GFS implements the core ideas of the Google File System (GFS) in a simplifi
 - Re-replication (depending on progress stage).
 
 ### ChunkServer
+
 - Auto-registration with master.
 - Disk-backed chunk store.
 - Read/write APIs.
@@ -57,22 +56,26 @@ Mini-GFS implements the core ideas of the Google File System (GFS) in a simplifi
 - Graceful shutdown logging.
 
 ## Architecture
+
 Mini-GFS follows the classic GFS model:
 
-- **Master = control + metadata plane**  
-- **ChunkServers = data plane**  
+- **Master = control + metadata plane**
+- **ChunkServers = data plane**
 - **Clients = request reads/writes**
 
 ### Write Flow
-1. Client asks Master for the primary + replicas of a chunk.  
-2. Client pushes data to replicas.  
-3. Primary applies write ordering.  
+
+1. Client asks Master for the primary + replicas of a chunk.
+2. Client pushes data to replicas.
+3. Primary applies write ordering.
 4. Primary instructs replicas to commit.
 
 ### Read Flow
+
 Client reads directly from any replica provided by the Master.
 
 ## Repo Layout
+
 ```
 
 /master
@@ -94,19 +97,21 @@ types.go
 
 README.md
 
-````
+```
 
 ## Requirements
+
 - Go ≥ 1.20
 
 ## Build & Run
 
 ### Start Master
+
 ```bash
 cd master
 go build -o master
 ./master
-````
+```
 
 ### Start ChunkServer
 
@@ -127,18 +132,18 @@ Run more chunkservers:
 
 ### Master
 
-* POST `/register`
-* POST `/heartbeat`
-* POST `/create-file`
-* POST `/allocate-chunk`
-* GET `/file-metadata/<filename>`
-* POST `/get-primary`
+- POST `/register`
+- POST `/heartbeat`
+- POST `/create-file`
+- POST `/allocate-chunk`
+- GET `/file-metadata/<filename>`
+- POST `/get-primary`
 
 ### ChunkServer
 
-* POST `/write-chunk`
-* POST `/forward-write`
-* GET `/read-chunk?chunk=<id>`
+- POST `/write-chunk`
+- POST `/forward-write`
+- GET `/read-chunk?chunk=<id>`
 
 ## Example Flow
 
@@ -168,22 +173,22 @@ curl "localhost:9001/read-chunk?chunk=chunk_0001"
 
 Tunables such as:
 
-* Heartbeat interval
-* Timeout threshold
-* Replication factor
-* Storage directory
+- Heartbeat interval
+- Timeout threshold
+- Replication factor
+- Storage directory
 
 Are found in:
 
-* `master/state.go`
-* `chunkserver/client.go`
+- `master/state.go`
+- `chunkserver/client.go`
 
 ## Troubleshooting
 
-* **Master marks server dead too fast** → Increase timeout.
-* **Reads fail** → Check if replica is alive.
-* **Writes not replicating** → Inspect `/forward-write` logs.
-* **Allocation fails** → Not enough alive replicas.
+- **Master marks server dead too fast** → Increase timeout.
+- **Reads fail** → Check if replica is alive.
+- **Writes not replicating** → Inspect `/forward-write` logs.
+- **Allocation fails** → Not enough alive replicas.
 
 ## Contributors
 
@@ -196,3 +201,4 @@ Specify your preferred license (MIT recommended).
 ```
 
 ---
+```
