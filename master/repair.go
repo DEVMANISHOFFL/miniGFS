@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"slices"
 	"time"
 )
 
@@ -28,13 +29,7 @@ func repairNode(deadID string) {
 	mu.Lock()
 	var toRepair []string
 	for chunkID, cm := range chunks {
-		foundDead := false
-		for _, r := range cm.Replicas {
-			if r == deadID {
-				foundDead = true
-				break
-			}
-		}
+		foundDead := slices.Contains(cm.Replicas, deadID)
 		if !foundDead {
 			continue
 		}
