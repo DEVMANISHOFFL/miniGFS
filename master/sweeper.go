@@ -20,7 +20,11 @@ func sweeper() {
 				cs.Alive = false
 				log.Printf("master: detected DEAD chunkserver : %s (lastSeen=%s)",
 					id, cs.lastSeen.Format(time.RFC3339))
+
+				// kick off repairs for chunks that referenced this node
+				go repairNode(id)
 			}
+
 		}
 		mu.Unlock()
 	}
