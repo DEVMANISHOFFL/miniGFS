@@ -11,6 +11,16 @@ func sweeper() {
 		now := time.Now()
 
 		mu.Lock()
+		nowUnix := time.Now().Unix()
+		for cid, cm := range chunks {
+			if cm.LeaseExpires != 0 && nowUnix >= cm.LeaseExpires {
+				// lease expired — clear primary so a new one can be assigned
+				log.Printf("master: lease expired for chunk %s (primary=%s)", cid, cm.Primary)
+				cm.Primary = ""
+				cm.LeaseExpires = 0
+				chunks[cid] = cm
+			}
+		}
 		for id, cs := range chunkServers {
 			if cs.lastSeen.IsZero() {
 				continue

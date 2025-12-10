@@ -4,10 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
-	"slices"
 	"time"
 )
 
@@ -29,7 +28,13 @@ func repairNode(deadID string) {
 	mu.Lock()
 	var toRepair []string
 	for chunkID, cm := range chunks {
-		foundDead := slices.Contains(cm.Replicas, deadID)
+		foundDead := false
+		for _, r := range cm.Replicas {
+			if r == deadID {
+				foundDead = true
+				break
+			}
+		}
 		if !foundDead {
 			continue
 		}
@@ -119,7 +124,7 @@ func repairChunk(chunkID, deadID string) error {
 			continue
 		}
 
-		respBody, _ := ioutil.ReadAll(resp.Body)
+		respBody, _ := io.ReadAll(resp.Body)
 		resp.Body.Close()
 
 		if resp.StatusCode != http.StatusOK {

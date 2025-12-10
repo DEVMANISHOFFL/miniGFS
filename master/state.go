@@ -18,15 +18,16 @@ type ChunkLocationsRequest struct {
 }
 
 type AllocateRequest struct {
-	File string `json:"file"`
-}
-
-type ChunkLocationsResponse struct {
-	Locations []string `json:"locations"`
+	File      string `json:"file"`
+	SizeBytes int64  `json:"size_bytes"`
 }
 
 type AllocateResponse struct {
-	ChunkID   string   `json:"chunk_id"`
+	ChunkIDs  []string   `json:"chunk_ids"`
+	Locations [][]string `json:"locations"`
+}
+
+type ChunkLocationsResponse struct {
 	Locations []string `json:"locations"`
 }
 
@@ -43,10 +44,13 @@ type FileMeta struct {
 }
 
 type ChunkMeta struct {
-	ID       string   `json:"id"`
-	FileName string   `json:"file_name"`
-	Index    int      `json:"index"`
-	Replicas []string `json:"replicas"`
+	ID           string   `json:"id"`
+	FileName     string   `json:"file_name"`
+	Index        int      `json:"index"`
+	Replicas     []string `json:"replicas"`
+	Primary      string   `json:"primary,omitempty"`
+	LeaseExpires int64    `json:"lease_expires_unix"`
+	Version      uint64   `json:"version,omitempty"`
 }
 
 var (
@@ -60,4 +64,12 @@ const (
 	heartbeatTimeout  = 10 * time.Second
 	sweepInterval     = 3 * time.Second
 	replicationFactor = 2
+	ChunkSize         = 4 * 1024 * 1024
 )
+
+func (c *ChunkMeta) LeaseValid() bool {
+	if c.LeaseExpires == 0 {
+		return false
+	}
+	return time.Now().Unix() < c.LeaseExpires
+}

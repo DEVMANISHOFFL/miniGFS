@@ -12,6 +12,9 @@ func setupServer(addr string) *http.Server {
 	mux.HandleFunc("/read_chunk", readChunkHandler)
 	mux.HandleFunc("/copy_chunk", copyChunkHandler)
 	mux.HandleFunc("/receive_chunk", receiveChunkHandler)
+	mux.HandleFunc("/write_primary", writePrimaryHandler)
+	mux.HandleFunc("/apply_write", applyWriteHandler)
+	mux.HandleFunc("/commit", commitHandler)
 
 	return &http.Server{
 		Addr:    addr,

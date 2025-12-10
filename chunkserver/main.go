@@ -9,6 +9,8 @@ import (
 	"syscall"
 )
 
+var serverAddr string
+
 func main() {
 	port := flag.String("port", "9001", "chunkserver port")
 	flag.Parse()
@@ -16,6 +18,8 @@ func main() {
 	os.MkdirAll("data", 0755)
 
 	addr := ":" + *port
+
+	serverAddr = "localhost:" + *port
 
 	srv := setupServer(addr)
 	startHTTPServer(srv)
