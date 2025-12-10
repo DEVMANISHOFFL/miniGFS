@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+
+  master:
+    build:
+      context: .
+      dockerfile: Dockerfile.master
+    container_name: gfs-master
+    ports:
+      - "8080:8080"
+    networks:
+      - gfsnet
+
+  chunk1:
+    build:
+      context: .
+      dockerfile: Dockerfile.chunkserver
+    container_name: gfs-chunk1
+    environment:
+      - PORT=9001
+    command: ["/app/chunkserver", "--port=9001"]
+    ports:
+      - "9001:9001"
+    volumes:
+      - chunk1data:/data
+    networks:
+      - gfsnet
+
+  chunk2:
+    build:
+      context: .
+      dockerfile: Dockerfile.chunkserver
+    container_name: gfs-chunk2
+    environment:
+      - PORT=9002
+    command: ["/app/chunkserver", "--port=9002"]
+    ports:
+      - "9002:9002"
+    volumes:
+      - chunk2data:/data
+    networks:
+      - gfsnet
+
+  chunk3:
+    build:
+      context: .
+      dockerfile: Dockerfile.chunkserver
+    container_name: gfs-chunk3
+    environment:
+      - PORT=9003
+    command: ["/app/chunkserver", "--port=9003"]
+    ports:
+      - "9003:9003"
+    volumes:
+      - chunk3data:/data
+    networks:
+      - gfsnet
+
+volumes:
+  chunk1data:
+  chunk2data:
+  chunk3data:
+
+networks:
+  gfsnet:

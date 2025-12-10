@@ -175,7 +175,7 @@ func allocateChunks(file string, sizeBytes int64) (*AllocateResponse, error) {
 		copy(locCopy, replicas)
 		locations = append(locations, locCopy)
 	}
-	
+
 	appendOpLog("allocate", map[string]any{
 		"file":   file,
 		"chunks": chunkIDs,
@@ -216,5 +216,20 @@ func ChunkLocationsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(resp)
+}
+
+func clusterInfoHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	mu.Lock()
+	defer mu.Unlock()
+
+	resp := map[string]any{
+		"chunkservers": chunkServers,
+		"files":        files,
+		"chunks":       chunks,
+	}
+
 	json.NewEncoder(w).Encode(resp)
 }

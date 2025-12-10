@@ -1,0 +1,16 @@
+FROM golang:1.23-alpine AS builder
+WORKDIR /app
+
+COPY . .
+
+RUN go build -o chunkserver ./chunkserver
+
+FROM alpine:3.19
+WORKDIR /app
+COPY --from=builder /app/chunkserver/chunkserver /app/chunkserver
+
+RUN mkdir -p /data
+VOLUME ["/data"]
+
+EXPOSE 9001
+CMD ["/app/chunkserver"]

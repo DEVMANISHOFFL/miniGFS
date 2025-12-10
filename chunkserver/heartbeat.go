@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	masterURL          = "http://localhost:8080"
+	masterURL          = "http://master:8080"
 	heartbeatInterval  = 3 * time.Second
 	registerRetryDelay = 2 * time.Second
 )

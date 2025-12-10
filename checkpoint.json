@@ -1340,6 +1340,7 @@
         "localhost:9001",
         "localhost:9002"
       ],
+      "primary": "localhost:9001",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -3045,6 +3046,7 @@
         "localhost:9001",
         "localhost:9002"
       ],
+      "primary": "localhost:9001",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -4738,6 +4740,7 @@
         "localhost:9002",
         "localhost:9001"
       ],
+      "primary": "localhost:9002",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -4749,6 +4752,7 @@
         "localhost:9001",
         "localhost:9002"
       ],
+      "primary": "localhost:9001",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -4760,6 +4764,7 @@
         "localhost:9002",
         "localhost:9001"
       ],
+      "primary": "localhost:9002",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -4771,6 +4776,7 @@
         "localhost:9001",
         "localhost:9002"
       ],
+      "primary": "localhost:9001",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -4782,6 +4788,7 @@
         "localhost:9002",
         "localhost:9001"
       ],
+      "primary": "localhost:9002",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -4793,6 +4800,7 @@
         "localhost:9001",
         "localhost:9002"
       ],
+      "primary": "localhost:9001",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -4804,6 +4812,7 @@
         "localhost:9002",
         "localhost:9001"
       ],
+      "primary": "localhost:9002",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -4815,6 +4824,7 @@
         "localhost:9001",
         "localhost:9002"
       ],
+      "primary": "localhost:9001",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -4838,6 +4848,7 @@
         "localhost:9002",
         "localhost:9001"
       ],
+      "primary": "localhost:9002",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -4849,6 +4860,7 @@
         "localhost:9001",
         "localhost:9002"
       ],
+      "primary": "localhost:9001",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -4860,6 +4872,7 @@
         "localhost:9002",
         "localhost:9001"
       ],
+      "primary": "localhost:9002",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -6453,6 +6466,7 @@
         "localhost:9001",
         "localhost:9002"
       ],
+      "primary": "localhost:9001",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -6464,6 +6478,7 @@
         "localhost:9002",
         "localhost:9001"
       ],
+      "primary": "localhost:9002",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -6475,6 +6490,7 @@
         "localhost:9001",
         "localhost:9002"
       ],
+      "primary": "localhost:9001",
       "lease_expires_unix": 0,
       "version": 1
     },
@@ -6987,12 +7003,12 @@
     "localhost:9001": {
       "port": "9001",
       "alive": true,
-      "last_seen_unix": 1765378138
+      "last_seen_unix": 1765385068
     },
     "localhost:9002": {
       "port": "9002",
       "alive": true,
-      "last_seen_unix": 1765378138
+      "last_seen_unix": 1765385068
     }
   }
 }
