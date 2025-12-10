@@ -33,9 +33,12 @@ func sweeper() {
 
 				// kick off repairs for chunks that referenced this node
 				go repairNode(id)
-			}
 
+			}
 		}
 		mu.Unlock()
+		if time.Now().Unix()%10 == 0 {
+			writeCheckpoint()
+		}
 	}
 }

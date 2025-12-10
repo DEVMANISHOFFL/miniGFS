@@ -175,6 +175,11 @@ func allocateChunks(file string, sizeBytes int64) (*AllocateResponse, error) {
 		copy(locCopy, replicas)
 		locations = append(locations, locCopy)
 	}
+	
+	appendOpLog("allocate", map[string]any{
+		"file":   file,
+		"chunks": chunkIDs,
+	})
 
 	return &AllocateResponse{
 		ChunkIDs:  chunkIDs,

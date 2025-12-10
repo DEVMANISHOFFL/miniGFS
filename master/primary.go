@@ -114,6 +114,12 @@ func assignPrimaryHandler(w http.ResponseWriter, r *http.Request) {
 	chunks[req.ChunkID] = cm
 	mu.Unlock()
 
+	appendOpLog("assign_primary", map[string]any{
+		"chunk_id": req.ChunkID,
+		"primary":  chosen,
+		"version":  cm.Version,
+	})
+
 	log.Printf("master:  assigned primary %s for chunk %s lease %ds", chosen, req.ChunkID, leaseSec)
 	json.NewEncoder(w).Encode(primaryResp{
 		Primary:      chosen,

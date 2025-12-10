@@ -166,6 +166,12 @@ func repairChunk(chunkID, deadID string) error {
 		chunks[chunkID] = cm
 		mu.Unlock()
 
+		appendOpLog("repair", map[string]any{
+			"chunk_id":    chunkID,
+			"new_replica": target,
+			"removed":     deadID,
+		})
+
 		log.Printf("master: repaired chunk %s - added replica %s (removed %s)", chunkID, target, deadID)
 		return nil
 	}

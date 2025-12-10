@@ -14,9 +14,13 @@ import (
 func main() {
 	log.SetFlags(0)
 
+	// load persisted state (checkpoint + op-log) before starting services
+	loadCheckpoint()
+	replayOpLog()
+
 	srv := setupServer()
 	go sweeper()
-	
+
 	go func() {
 		fmt.Printf("\033[31mmaster:\033[0m server starting on port: %s\n", srv.Addr)
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {

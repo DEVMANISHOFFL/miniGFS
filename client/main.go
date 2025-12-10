@@ -180,7 +180,8 @@ func downloadFile(chunkIDs []string) ([]byte, error) {
 }
 
 func main() {
-	data := []byte("hello mini gfs 101")
+	data := make([]byte, 6*1024*1024)
+	copy(data, []byte("hello this is our giant file"))
 
 	// UPLOAD (MULTIPLE CHUNK IDs)
 	chunkIDs, err := uploadFile("fresh.txt", data)
